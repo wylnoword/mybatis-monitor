@@ -15,6 +15,7 @@ import java.io.InputStream;
 import static org.junit.Assert.*;
 
 public class TUserMapperTest {
+
     private SqlSessionFactory sqlSessionFactory;
 
     @Before
