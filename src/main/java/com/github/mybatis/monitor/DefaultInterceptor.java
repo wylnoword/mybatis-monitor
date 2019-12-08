@@ -6,7 +6,7 @@ import java.sql.Statement;
 
 /**
  * @author Wang.YuLiang
- **/
+ */
 
 public interface DefaultInterceptor extends Interceptor {
 
