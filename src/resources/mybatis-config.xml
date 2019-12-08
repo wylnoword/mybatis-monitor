@@ -16,11 +16,11 @@
 		<package name="com.github.mybatis.monitor.entity" />
 	</typeAliases>
 	<!--插件开启	-->
-	<plugins>
+	<!--<plugins>
 		<plugin interceptor="com.github.mybatis.monitor.DefaultInterceptor">
 			<property name="threshold" value="10"/>
 		</plugin>
-	</plugins>
+	</plugins>-->
 
 
 	<!--配置environment环境 -->
@@ -40,6 +40,5 @@
 	<mappers>
 		<!--直接映射到相应的mapper文件 -->
 		<mapper resource="sqlmapper/TUserMapper.xml" />
-		<mapper resource="sqlmapper/TRoleMapper.xml" />
 	</mappers>
 </configuration>
