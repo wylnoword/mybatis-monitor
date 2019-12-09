@@ -37,7 +37,7 @@
 	<select id="selectByEmailAndSex2" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from user a
+		from t_user a
 		where a.email like CONCAT('%', #{email}, '%') and
 		a.sex =
 		#{sex}
@@ -79,7 +79,7 @@
 	</select>
 
 	<update id="updateIfOper" parameterType="TUser">
-		update user
+		update t_user
 		set
 		<if test="userName != null">
 			user_name = #{userName,jdbcType=VARCHAR},
@@ -136,7 +136,7 @@
 
 
 	<insert id="insertIfOper" parameterType="TUser">
-		insert into user (
+		insert into t_user (
 		<if test="id != null">
 			id,
 		</if>
@@ -194,7 +194,7 @@
 	<select id="selectForeach4In" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from user a
+		from t_user a
 		where a.user_name in
 		<foreach collection="array" open="(" close=")" item="userName"
 				 index="i" separator=",">
@@ -204,7 +204,7 @@
 
 
 	<insert id="insertForeach4Batch" useGeneratedKeys="true"		keyProperty="id">
-		insert into user (user_name, real_name,
+		insert into t_user (user_name, real_name,
 		sex, mobile,email,note,
 		position_id)
 		values
@@ -236,19 +236,19 @@
 			parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
-		from user
+		from t_user
 		where id = #{id,jdbcType=INTEGER}
 	</select>
 
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-		delete from user
+		delete from t_user
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
 
 	<insert id="insert1" parameterType="TUser" useGeneratedKeys="true"
 			keyProperty="id">
-		insert into user (id, user_name, real_name,
+		insert into t_user (id, user_name, real_name,
 							sex, mobile,
 							email,
 							note, position_id)
@@ -267,7 +267,7 @@
 			select
 			LAST_INSERT_ID()
 		</selectKey>
-		insert into user (id, user_name, real_name,
+		insert into t_user (id, user_name, real_name,
 		sex, mobile,
 		email,
 		note,
@@ -285,7 +285,7 @@
 
 
 	<insert id="insertSelective" parameterType="TUser" useGeneratedKeys="true"		keyProperty="id">
-		insert into user
+		insert into t_user
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				id,
@@ -340,7 +340,7 @@
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective" parameterType="TUser">
-		update test.user
+		update test.t_user
 		<set>
 			<if test="userName != null">
 				user_name = #{userName,jdbcType=VARCHAR},
@@ -367,7 +367,7 @@
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="TUser">
-		update user
+		update t_user
 		set
 			user_name = #{userName,jdbcType=VARCHAR},
 			real_name =
