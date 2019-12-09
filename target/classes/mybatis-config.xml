@@ -16,11 +16,11 @@
 		<package name="com.github.mybatis.monitor.entity" />
 	</typeAliases>
 	<!--插件开启	-->
-	<!--<plugins>
-		<plugin interceptor="com.github.mybatis.monitor.DefaultInterceptor">
+	<plugins>
+		<plugin interceptor="com.github.mybatis.monitor.interceptor.Interceptor">
 			<property name="threshold" value="10"/>
 		</plugin>
-	</plugins>-->
+	</plugins>
 
 
 	<!--配置environment环境 -->

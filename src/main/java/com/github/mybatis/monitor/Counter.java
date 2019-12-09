@@ -16,4 +16,10 @@ public interface Counter {
      * @return 当前计数值
      */
     int getCount();
+
+    /**
+     * 计数自增
+     */
+    void increment();
+
 }
