@@ -13,6 +13,8 @@ import org.apache.ibatis.session.ResultHandler;
 
 import java.sql.Statement;
 import java.util.Properties;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  *@author Wang.YuLiang
@@ -26,14 +28,20 @@ public class Interceptor implements DefaultInterceptor {
 
     private long threshold;
 
+    private ConcurrentHashMap<Statement,Long> sqlTime;
+
+    private CopyOnWriteArrayList preHandlerList;
+
+    private CopyOnWriteArrayList postHandlerList;
+
     public Object intercept(Invocation invocation) throws Throwable {
+        Object[] args = invocation.getArgs();
+        Statement stat = (Statement) args[0];
         long begin = System.currentTimeMillis();
         Object ret = invocation.proceed();
         long end=System.currentTimeMillis();
         long runTime = end - begin;
         if(runTime>=threshold){
-            Object[] args = invocation.getArgs();
-            Statement stat = (Statement) args[0];
             MetaObject metaObjectStat = SystemMetaObject.forObject(stat);
             PreparedStatementLogger statementLogger = (PreparedStatementLogger)metaObjectStat.getValue("h");
             Statement statement = statementLogger.getPreparedStatement();
