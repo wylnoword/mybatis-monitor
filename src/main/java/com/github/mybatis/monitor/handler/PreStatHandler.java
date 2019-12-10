@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class PreStatHandler implements PreHandler{
 
-    private ConcurrentHashMap<Statement, AtomicLong> concurrentHashMap;
+    private ConcurrentHashMap<Statement, AtomicLong> concurrentHashMap = new ConcurrentHashMap<Statement, AtomicLong>();
 
     public String process(Statement statement) {
         if(concurrentHashMap.containsKey(statement)){

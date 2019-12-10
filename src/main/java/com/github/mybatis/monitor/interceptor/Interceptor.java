@@ -1,6 +1,10 @@
 package com.github.mybatis.monitor.interceptor;
 
 import com.github.mybatis.monitor.DefaultInterceptor;
+import com.github.mybatis.monitor.handler.PreHandler;
+import com.github.mybatis.monitor.handler.PreSqlHandler;
+import com.github.mybatis.monitor.handler.PreStatHandler;
+import com.github.mybatis.monitor.handler.PreStopWatchHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.logging.jdbc.PreparedStatementLogger;
 import org.apache.ibatis.plugin.Intercepts;
@@ -15,6 +19,7 @@ import java.sql.Statement;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  *@author Wang.YuLiang
@@ -28,15 +33,28 @@ public class Interceptor implements DefaultInterceptor {
 
     private long threshold;
 
-    private ConcurrentHashMap<Statement,Long> sqlTime;
+    private ConcurrentHashMap<Statement, AtomicLong> sqlTime;
 
-    private CopyOnWriteArrayList preHandlerList;
+    private CopyOnWriteArrayList<PreHandler> preHandlerList = new CopyOnWriteArrayList<PreHandler>();
 
     private CopyOnWriteArrayList postHandlerList;
 
+    private PreSqlHandler preSqlHandler = new PreSqlHandler();
+    private PreStatHandler preStatHandler = new PreStatHandler();
+    private PreStopWatchHandler preStopWatchHandler = new PreStopWatchHandler();
+
     public Object intercept(Invocation invocation) throws Throwable {
+
+        preHandlerList.add(preSqlHandler);
+        preHandlerList.add(preStatHandler);
+        preHandlerList.add(preStopWatchHandler);
+
         Object[] args = invocation.getArgs();
         Statement stat = (Statement) args[0];
+        for (PreHandler preHandler : preHandlerList) {
+            String process = preHandler.process(stat);
+            System.out.println(process);
+        }
         long begin = System.currentTimeMillis();
         Object ret = invocation.proceed();
         long end=System.currentTimeMillis();
