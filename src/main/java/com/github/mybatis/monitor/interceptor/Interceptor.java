@@ -45,7 +45,11 @@ public class Interceptor implements DefaultInterceptor {
 
     public Object intercept(Invocation invocation) throws Throwable {
         HandlerBuilder handlerBuilder = new HandlerBuilder();
-        List<PreHandler> preHandlerList = handlerBuilder.buildSqlHandler().buildStatHandler().buildTimeHandler().build();
+        List<PreHandler> preHandlerList = handlerBuilder
+                .buildSqlHandler()
+                .buildStatHandler()
+                .buildTimeHandler()
+                .build();
         Object[] args = invocation.getArgs();
         Statement stat = (Statement) args[0];
         for (PreHandler preHandler : preHandlerList) {

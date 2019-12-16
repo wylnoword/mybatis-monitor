@@ -8,8 +8,9 @@ import com.github.mybatis.monitor.handler.PreStopWatchHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HandlerBuilder {
 
+public class HandlerBuilder {
+    //使用配置 if控制builder构造器
     private static List<PreHandler> preHandlerList = new ArrayList<PreHandler>();
 
     public HandlerBuilder buildSqlHandler(){
