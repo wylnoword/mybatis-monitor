@@ -1,5 +1,3 @@
-package test;
-
 import com.github.mybatis.monitor.dao.TUserMapper;
 import com.github.mybatis.monitor.entity.TUser;
 import org.apache.ibatis.io.Resources;

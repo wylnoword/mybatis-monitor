@@ -13,6 +13,7 @@ public class PreSqlHandler implements PreHandler {
         PreparedStatementLogger statementLogger = (PreparedStatementLogger)metaObjectStat.getValue("h");
         Statement statement1 = statementLogger.getPreparedStatement();
         String sql = statement1.toString();
+        //sql预处理器逻辑定义
         if(sql.contains("select")&&sql.contains("where")){
             System.err.println("危险SQL");
             System.err.println(sql);
