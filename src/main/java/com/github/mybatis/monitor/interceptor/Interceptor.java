@@ -1,6 +1,7 @@
 package com.github.mybatis.monitor.interceptor;
 
 import com.github.mybatis.monitor.DefaultInterceptor;
+import com.github.mybatis.monitor.builder.HandlerBuilder;
 import com.github.mybatis.monitor.handler.PreHandler;
 import com.github.mybatis.monitor.handler.PreSqlHandler;
 import com.github.mybatis.monitor.handler.PreStatHandler;
@@ -16,6 +17,7 @@ import org.apache.ibatis.reflection.SystemMetaObject;
 import org.apache.ibatis.session.ResultHandler;
 
 import java.sql.Statement;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -35,8 +37,6 @@ public class Interceptor implements DefaultInterceptor {
 
     private ConcurrentHashMap<Statement, AtomicLong> sqlTime;
     //前置处理
-    private CopyOnWriteArrayList<PreHandler> preHandlerList = new CopyOnWriteArrayList<PreHandler>();
-
     private CopyOnWriteArrayList postHandlerList;
 
     private PreSqlHandler preSqlHandler = new PreSqlHandler();
@@ -44,11 +44,8 @@ public class Interceptor implements DefaultInterceptor {
     private PreStopWatchHandler preStopWatchHandler = new PreStopWatchHandler();
 
     public Object intercept(Invocation invocation) throws Throwable {
-
-        preHandlerList.add(preSqlHandler);
-        preHandlerList.add(preStatHandler);
-        preHandlerList.add(preStopWatchHandler);
-
+        HandlerBuilder handlerBuilder = new HandlerBuilder();
+        List<PreHandler> preHandlerList = handlerBuilder.buildSqlHandler().buildStatHandler().buildTimeHandler().build();
         Object[] args = invocation.getArgs();
         Statement stat = (Statement) args[0];
         for (PreHandler preHandler : preHandlerList) {
