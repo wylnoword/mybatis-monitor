@@ -39,10 +39,6 @@ public class Interceptor implements DefaultInterceptor {
     //前置处理
     private CopyOnWriteArrayList postHandlerList;
 
-    private PreSqlHandler preSqlHandler = new PreSqlHandler();
-    private PreStatHandler preStatHandler = new PreStatHandler();
-    private PreStopWatchHandler preStopWatchHandler = new PreStopWatchHandler();
-
     public Object intercept(Invocation invocation) throws Throwable {
         HandlerBuilder handlerBuilder = new HandlerBuilder();
         List<PreHandler> preHandlerList = handlerBuilder
