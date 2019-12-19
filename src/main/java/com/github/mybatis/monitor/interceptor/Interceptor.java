@@ -36,8 +36,7 @@ public class Interceptor implements DefaultInterceptor {
     private long threshold;
 
     private ConcurrentHashMap<Statement, AtomicLong> sqlTime;
-    //前置处理
-    private CopyOnWriteArrayList postHandlerList;
+
 
     public Object intercept(Invocation invocation) throws Throwable {
         HandlerBuilder handlerBuilder = new HandlerBuilder();
