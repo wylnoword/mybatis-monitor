@@ -50,7 +50,7 @@ public class Interceptor implements DefaultInterceptor {
         for (PreHandler preHandler : preHandlerList) {
             String process = preHandler.process(stat);
             //输出处理结果
-            //todo 使用logo进行记录
+            //todo 使用log进行记录
             System.out.println(process);
         }
         long begin = System.currentTimeMillis();
