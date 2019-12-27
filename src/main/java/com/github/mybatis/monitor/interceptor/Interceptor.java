@@ -34,7 +34,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class Interceptor implements DefaultInterceptor {
     //处理时间阈值
     private long threshold;
-
+    //
     private ConcurrentHashMap<Statement, AtomicLong> sqlTime;
 
 
