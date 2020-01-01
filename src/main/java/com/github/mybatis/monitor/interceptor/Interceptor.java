@@ -26,7 +26,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  *@author Wang.YuLiang
  */
-//过滤注解
+//过滤注解 四大处理对象过滤
 @Intercepts({
         @Signature(type= StatementHandler.class,method="query",args={Statement.class, ResultHandler.class})
 //	@Signature(type=StatementHandler.class,method="query",args={MappedStatement.class,Object.class, RowBounds.class, ResultHandler.class})
