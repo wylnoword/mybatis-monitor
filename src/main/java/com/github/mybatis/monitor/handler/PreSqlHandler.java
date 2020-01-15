@@ -6,6 +6,9 @@ import org.apache.ibatis.reflection.SystemMetaObject;
 
 import java.sql.Statement;
 
+/**
+ * 预先定义 危险  SQL的处理器逻辑
+ */
 public class PreSqlHandler implements PreHandler {
 
     public String process(Statement statement) {
