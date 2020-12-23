@@ -1,4 +1,4 @@
 package com.github.mybatis.monitor.db;
 
-public class db {
+public class Db {
 }

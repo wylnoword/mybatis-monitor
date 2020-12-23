@@ -1,4 +1,4 @@
 package com.github.mybatis.monitor.log;
 
-public class log {
+public class Log {
 }
