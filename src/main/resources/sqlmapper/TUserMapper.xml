@@ -231,12 +231,11 @@
 		position_id
 	</sql>
 
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
-			parameterType="java.lang.Integer">
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
 		select
 		<include refid="Base_Column_List" />
 		from t_user
-		where id = #{id,jdbcType=INTEGER}
+		where id = #{id}
 	</select>
 
 

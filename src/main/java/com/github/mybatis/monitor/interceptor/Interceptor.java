@@ -1,6 +1,7 @@
 package com.github.mybatis.monitor.interceptor;
 
 import com.github.mybatis.monitor.DefaultInterceptor;
+import com.github.mybatis.monitor.log.SQLLogger;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.executor.statement.StatementHandler;
@@ -17,6 +18,10 @@ import org.apache.ibatis.reflection.SystemMetaObject;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
@@ -32,6 +37,7 @@ import java.util.Properties;
 @Intercepts({
         @Signature(type = StatementHandler.class, method = "query", args = {Statement.class, ResultHandler.class}),
         @Signature(type = StatementHandler.class, method = "getParameterHandler",args = {}),
+        @Signature(type = StatementHandler.class, method = "prepare",args = {Connection.class,Integer.class}),
         @Signature(type = StatementHandler.class, method = "update",args ={Statement.class} )
 })
 
@@ -52,6 +58,7 @@ public class Interceptor implements DefaultInterceptor {
             MetaObject metaObjectStat = SystemMetaObject.forObject(stat);
             PreparedStatementLogger statementLogger = (PreparedStatementLogger)metaObjectStat.getValue("h");
             Statement statement = statementLogger.getPreparedStatement();
+//            new SQLLogger()
             System.out.println("sql语句： "+statement.toString()+" 执行时间为："+runTime+"毫秒，已经超过阈值！");
         }
         return ret;
@@ -64,4 +71,11 @@ public class Interceptor implements DefaultInterceptor {
     public void setProperties(Properties properties) {
         this.threshold = Long.parseLong(properties.getProperty("threshold"));
     }
+
+    private DataSource checkDataSource(Statement statement) throws SQLException {
+        DatabaseMetaData metaData = statement.getConnection().getMetaData();
+        String driverVersion = metaData.getDriverVersion();
+        return  null;
+    }
+
 }

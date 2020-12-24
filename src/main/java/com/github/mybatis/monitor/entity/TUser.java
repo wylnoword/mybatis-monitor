@@ -17,9 +17,9 @@ public class TUser {
     private String note;
 
     private Integer positionId;
-    
 
-	public Long getId() {
+
+    public Long getId() {
         return id;
     }
 

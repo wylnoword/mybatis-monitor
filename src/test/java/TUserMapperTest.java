@@ -31,13 +31,23 @@ public class TUserMapperTest {
     }
 
     @Test
-    public void selectByPrimaryKey() {
+    public void selectAll() {
         // 2.获取sqlSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
         // 3.获取对应mapper
         TUserMapper mapper = sqlSession.getMapper(TUserMapper.class);
         // 4.执行查询语句并返回结果
         System.out.println(mapper.selectUserHealthReport());
+    }
+
+    @Test
+    public void selectByPrimaryKey() {
+        // 2.获取sqlSession
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        // 3.获取对应mapper
+        TUserMapper mapper = sqlSession.getMapper(TUserMapper.class);
+        // 4.执行查询语句并返回结果
+        System.out.println(mapper.selectByPrimaryKey(23L));
     }
 
     @Test
