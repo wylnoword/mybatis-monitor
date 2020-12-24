@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.github.mybatis.monitor.dao.TUserMapper">
 
-	<cache></cache>
 	<resultMap id="BaseResultMap" type="TUser">
 
 		<!-- <constructor> <idArg column="id" javaType="int"/> <arg column="user_name"
@@ -30,7 +29,7 @@
 	<select id="selectUserHealthReport" resultMap="userAndHealthReport">
 		select
 		<include refid="Base_Column_List" />
-		from user a
+		from t_user a
 	</select>
 
 
@@ -46,7 +45,7 @@
 	<select id="selectIfandWhereOper" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from user a
+		from t_user a
 		<where>
 			<if test="email != null and email != ''">
 				and a.email like CONCAT('%', #{email}, '%')
@@ -60,7 +59,7 @@
 	<select id="selectChooseOper" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from user a
+		from t_user a
 		<where>
 			<choose>
 				<when test="email != null and email != ''">
@@ -107,7 +106,7 @@
 
 	<update id="updateIfAndSetOper" parameterType="TUser">
 
-		update user
+		update t_user
 		<set>
 			<if test="userName != null">
 				user_name = #{userName,jdbcType=VARCHAR},
@@ -248,17 +247,17 @@
 
 	<insert id="insert1" parameterType="TUser" useGeneratedKeys="true"
 			keyProperty="id">
-		insert into t_user (id, user_name, real_name,
+		insert into t_user (user_name, real_name,
 							sex, mobile,
 							email,
 							note, position_id)
-		values (#{id,jdbcType=INTEGER},
+		values (
 				#{userName,jdbcType=VARCHAR},
 				#{realName,jdbcType=VARCHAR},
 				#{sex,jdbcType=TINYINT}, #{mobile,jdbcType=VARCHAR},
 				#{email,jdbcType=VARCHAR},
 				#{note,jdbcType=VARCHAR},
-				#{position.id,jdbcType=INTEGER})
+				#{positionId,jdbcType=BIGINT})
 	</insert>
 
 	<insert id="insert2" parameterType="TUser">
@@ -278,7 +277,7 @@
 		#{sex,jdbcType=TINYINT}, #{mobile,jdbcType=VARCHAR},
 		#{email,jdbcType=VARCHAR},
 		#{note,jdbcType=VARCHAR},
-		#{position.id,jdbcType=INTEGER})
+		#{positionId,jdbcType=INTEGER})
 	</insert>
 
 
@@ -340,7 +339,7 @@
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective" parameterType="TUser">
-		update test.t_user
+		update t_user
 		<set>
 			<if test="userName != null">
 				user_name = #{userName,jdbcType=VARCHAR},

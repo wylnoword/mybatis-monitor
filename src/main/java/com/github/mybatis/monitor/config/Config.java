@@ -1,4 +1,4 @@
 package com.github.mybatis.monitor.config;
 
-public class config {
+public class Config {
 }

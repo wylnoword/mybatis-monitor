@@ -2,7 +2,7 @@ package com.github.mybatis.monitor.entity;
 
 
 public class TUser {
-    private Integer id;
+    private Long id;
 
     private String userName;
 
@@ -19,11 +19,11 @@ public class TUser {
     private Integer positionId;
     
 
-	public Integer getId() {
+	public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -82,6 +82,8 @@ public class TUser {
     public void setPositionId(Integer positionId) {
         this.positionId = positionId;
     }
+
+
     
 
 	@Override
